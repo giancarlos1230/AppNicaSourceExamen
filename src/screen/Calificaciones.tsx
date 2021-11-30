@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         textAlign: 'center',
-        marginTop: 10
+        marginTop: 20
     },
 
     Parciales: {
