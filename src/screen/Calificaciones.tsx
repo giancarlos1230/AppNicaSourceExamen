@@ -8,8 +8,9 @@ const Calificacion = ({ navigation }) => {
     const [calis, setCalis] = useState<string[]>([])
     const [pripar, setPripar] = useState('')
     const [segpar, setSegpar] = useState('')
-    const [nfinal, setNfinal] = useState<string[]>([])
     const [nfinales, setNfinales] = useState<string[]>([])
+    const [nfinal, setNfinal] = useState<string>('')
+
 
     let pass: number = 0
     let Validado = ''
@@ -18,27 +19,28 @@ const Calificacion = ({ navigation }) => {
     const crear = () => {
         setCalis([...calis, dato])
 
-        let notaFinal  = parseFloat(pripar) + parseFloat(segpar)
-        pass = notaFinal  / 2
+        let nfinal  = parseFloat(pripar) + parseFloat(segpar)
+        pass = nfinal  / 2
         validar()
+        setNfinal(pass.toPrecision())
     }
 
     const validar = () => {
         if (pripar === 'SD' || segpar === 'SD') {
             Validado = reprobo
-            setNfinal([...nfinal, Validado])
+            setNfinales([...nfinales, Validado])
         }
-        if (pass >= 60) {
-            setNfinal([...nfinal, pass.toString()])
+        else
+        {
+            setNfinales([...nfinales, pass.toString()])
         
         }
     }
 
    //useEffect(crear, [pripar, segpar])
     return (
-        <ScrollView>
-            <View>
-                <Text style={styles.text}>Nombre del estudiante</Text>
+            <View style={styles.containerBase}>
+                <Text style={styles.texthead}>Nombre del estudiante</Text>
                 <View style={styles.container}>
                     <TextInput
                         style={styles.inputs}
@@ -47,7 +49,6 @@ const Calificacion = ({ navigation }) => {
                     />
                 </View>
 
-
                 <View style={styles.Parciales}>
                     <FormInput
                         title={"IP"}
@@ -55,14 +56,15 @@ const Calificacion = ({ navigation }) => {
                         onChangeText={setPripar} />
 
                     <FormInput
-                        title={"IP"}
-                        placeholder={"IP"}
+                        title={"IIP"}
+                        placeholder={"IIP"}
                         onChangeText={setSegpar} />
-                </View>
+                <View>
 
-                <Text style={styles.text}> NF</Text>
+                    <Text style={styles.text}> NF</Text>
                     <Text style={styles.NF}>{nfinal}</Text>
-                   
+        
+                </View>
 
                 <TouchableOpacity
                     onPress={crear}
@@ -71,18 +73,20 @@ const Calificacion = ({ navigation }) => {
                     <Text style={styles.textbotonReset}>Agregar</Text>
                 </TouchableOpacity>
 
+                </View>
+            <ScrollView>
                 {
                     calis.map((calis, index) => (
                         <View style={styles.container} key={index} >
                             <Text style={styles.text}>{calis}</Text>
-                            <Text style={[nfinales[index] < '60' ? styles.textReprobo : styles.textAprobar]}>Nota Final :{notaFinales[index]}</Text>
+                            <Text style={[nfinales[index] < '60' ? styles.textReprobo : styles.textAprobar]}>Nota Final :{nfinales[index]}</Text>
 
                         </View>
                     ))
                 }
 
-            </View>
         </ScrollView>
+        </View>
 
     )
 }
@@ -124,15 +128,34 @@ const styles = StyleSheet.create({
 
     NF: {
 
-        width: '15%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 10,
-        paddingVertical: 10,
-        paddingHorizontal: 8,
-        marginLeft: 10,
-        borderWidth: 2,
-        borderColor: '#8C8A8A',
+        backgroundColor: '#F2F8FB',
+        borderRadius: 8,
+        padding: 10,
+        textAlign: 'right',
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#004445'
+    },
+
+    texthead: {
+        fontSize: 30,
+        color: '#034C50',
+        marginTop: 50,
+        marginLeft: 10    
+    },
+    
+    containerBase: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        justifyContent: 'center'
+    },
+
+    botonReset: {
+        backgroundColor: '#8C8A8A',
+        borderRadius: 8,
+        width: '30%',
+        paddingVertical: 7,
+        marginTop: 5
     },
 
     container: {
