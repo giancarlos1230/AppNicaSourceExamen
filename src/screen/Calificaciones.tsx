@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import FormInput from '../components/FormInput';
 
@@ -19,8 +19,8 @@ const Calificacion = ({ navigation }) => {
     const crear = () => {
         setCalis([...calis, dato])
 
-        let nfinal  = parseFloat(pripar) + parseFloat(segpar)
-        pass = nfinal  / 2
+        let nfinal = parseFloat(pripar) + parseFloat(segpar)
+        pass = nfinal / 2
         validar()
         setNfinal(pass.toPrecision())
     }
@@ -30,40 +30,36 @@ const Calificacion = ({ navigation }) => {
             Validado = reprobo
             setNfinales([...nfinales, Validado])
         }
-        else
-        {
+        else {
             setNfinales([...nfinales, pass.toString()])
-        
         }
     }
 
-   //useEffect(crear, [pripar, segpar])
     return (
-            <View style={styles.containerBase}>
-                <Text style={styles.texthead}>Nombre del estudiante</Text>
-                <View style={styles.container}>
-                    <TextInput
-                        style={styles.inputs}
-                        placeholder={'Nombre del estudiante'}
-                        onChangeText={setDato}
-                    />
-                </View>
+        <View style={styles.containerBase}>
+            <Text style={styles.texthead}>Nombre del estudiante</Text>
+            <View style={styles.container}>
+                <TextInput
+                    style={styles.inputs}
+                    placeholder={'Nombre del estudiante'}
+                    onChangeText={setDato}
+                />
+            </View>
 
-                <View style={styles.Parciales}>
-                    <FormInput
-                        title={"IP"}
-                        placeholder={"IP"}
-                        onChangeText={setPripar} />
+            <View style={styles.Parciales}>
+                <FormInput
+                    title={"IP"}
+                    placeholder={"IP"}
+                    onChangeText={setPripar} />
+        
+                <FormInput
+                    title={"IIP"}
+                    placeholder={"IIP"}
+                    onChangeText={setSegpar} />
 
-                    <FormInput
-                        title={"IIP"}
-                        placeholder={"IIP"}
-                        onChangeText={setSegpar} />
                 <View>
-
                     <Text style={styles.text}> NF</Text>
                     <Text style={styles.NF}>{nfinal}</Text>
-        
                 </View>
 
                 <TouchableOpacity
@@ -73,7 +69,7 @@ const Calificacion = ({ navigation }) => {
                     <Text style={styles.textbotonReset}>Agregar</Text>
                 </TouchableOpacity>
 
-                </View>
+            </View>
             <ScrollView>
                 {
                     calis.map((calis, index) => (
@@ -85,7 +81,7 @@ const Calificacion = ({ navigation }) => {
                     ))
                 }
 
-        </ScrollView>
+            </ScrollView>
         </View>
 
     )
@@ -94,14 +90,6 @@ const Calificacion = ({ navigation }) => {
 export default Calificacion
 
 const styles = StyleSheet.create({
-
-    botonReset: {
-        backgroundColor: '#8C8A8A',
-        borderRadius: 8,
-        width: '30%',
-        paddingVertical: 7,
-        marginTop: 5
-    },
 
     textbotonReset: {
         color: '#05786A',
@@ -127,7 +115,6 @@ const styles = StyleSheet.create({
     },
 
     NF: {
-
         backgroundColor: '#F2F8FB',
         borderRadius: 8,
         padding: 10,
@@ -141,9 +128,9 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#034C50',
         marginTop: 50,
-        marginLeft: 10    
+        marginLeft: 10
     },
-    
+
     containerBase: {
         flex: 1,
         backgroundColor: '#FFFFFF',
@@ -159,23 +146,23 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        width: '90%',
+        width: '95%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 10,
         paddingVertical: 10,
         paddingHorizontal: 8,
+        borderRadius: 10,
         marginLeft: 10,
-        borderWidth: 2,
+        borderWidth: 3,
         borderColor: '#8C8A8A',
-        marginTop: 1,
-
+        marginTop: 10,
     },
     text: {
         fontSize: 24,
         color: '#05786A',
     },
-
+ 
     textReprobo: {
         fontSize: 24,
         color: '#B52222',
@@ -187,9 +174,11 @@ const styles = StyleSheet.create({
     },
 
     inputs: {
-        borderRadius: 3,
-        padding: 5,
-        fontSize: 25,
-        color: 'black',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 8,
+        padding: 10,
+        fontSize: 22,
+        color: '#034C50',
+        width: '70%'
     }
 })
